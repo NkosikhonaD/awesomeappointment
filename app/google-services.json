@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1073575770970",
+    "project_id": "awesomelecturerappointment",
+    "storage_bucket": "awesomelecturerappointment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073575770970:android:5134065fe4bb1432775163",
+        "android_client_info": {
+          "package_name": "com.example.lecturerappointment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073575770970-3e18ekgog1mvd1patrrqo0i3dkq8kl5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFpAmadMTapaqQb8OPPiTOSCFyCuC1uew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073575770970-3e18ekgog1mvd1patrrqo0i3dkq8kl5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
