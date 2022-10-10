@@ -47,28 +47,8 @@ public class Login extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                signIn(userName.getText().toString(),passowrd.getText().toString());
 
-                if(userName.getText().toString().equalsIgnoreCase("admin")&& passowrd.getText().toString().equalsIgnoreCase("admin"))
-                {
-                    // Start lecturer activities
-                    Toast.makeText(Login.this, "Lecturer login succesful", Toast.LENGTH_SHORT).show();
-                }
-                if(userName.getText().toString().equalsIgnoreCase("student")&& passowrd.getText().toString().equalsIgnoreCase("student"))
-                {
-                    //start student activities
-                }
-                else
-                {
-                    Toast.makeText(Login.this, "incorrect login details please enter again", Toast.LENGTH_SHORT).show();
-                    if(count>2)
-                    {
-                        Toast.makeText(Login.this, "Too many  login  attempts click link below to register or reset password", Toast.LENGTH_SHORT).show();
-                        registerLink.setVisibility(View.VISIBLE);
-                        registerLink.setEnabled(true);
-                        registerLink.setText("Register");
-                    }
-                }
-                count++;
             }
         });
 
@@ -96,6 +76,14 @@ public class Login extends AppCompatActivity
     }
     public void updateUI(FirebaseUser user)
     {
+        if(user==null)
+        {
+            Toast.makeText(Login.this, "account doesnt exist click link below to register or reset password", Toast.LENGTH_SHORT).show();
+            registerLink.setVisibility(View.VISIBLE);
+            registerLink.setEnabled(true);
+            registerLink.setText("Register");
+        }
+
 
     }
 }
