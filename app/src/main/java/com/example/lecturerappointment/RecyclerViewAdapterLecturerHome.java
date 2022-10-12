@@ -1,6 +1,7 @@
 package com.example.lecturerappointment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,10 +69,12 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
            {
                case 0:
                    Toast.makeText(view.getContext(),"Add courses activity",Toast.LENGTH_SHORT).show();
+
                    break;
                case 1:
                    // here view slots and have options to add new slots
                    Toast.makeText(view.getContext()," Slots view and add new slots activity",Toast.LENGTH_SHORT).show();
+                   Intent addSlot = new Intent(view.getContext(),LecturerAddSlot.class);
                    break;
                case 2:
                    // chats

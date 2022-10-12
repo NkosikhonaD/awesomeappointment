@@ -13,10 +13,14 @@
     <string name="select_date">Select date</string>
     <string name="make_booking">Welcome to Awesome Lecturer Bookings</string>
     <string name="select_course">Select course</string>
+    <string name="exit_label">Exit</string>
+    <string name="add_courses">Add Course</string>
     <string name="time_table_text">Slot</string>
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="save">Save</string>
+    <string name="add_new_course">Add new course</string>
+    <string name="enter_course_name">Enter course name</string>
     <string name="institution_email">Institution email</string>
     <string name="preferred_name">Preferred name</string>
     <string name="select_day">Select day</string>
