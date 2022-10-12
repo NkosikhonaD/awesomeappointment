@@ -34,15 +34,16 @@ public class Login extends AppCompatActivity
         passowrd = findViewById(R.id.edit_password);
 
         registerLink = findViewById(R.id.registerlink);
-        registerLink.setVisibility(View.INVISIBLE);
-        registerLink.setEnabled(false);
+        registerLink.setText("Register");
+        registerLink.setVisibility(View.VISIBLE);
+        registerLink.setEnabled(true);
         loginButton = findViewById(R.id.button_login);
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                Intent consultIntent = new Intent(getApplicationContext(),Register.class);
-
+                Intent registerIntent = new Intent(getApplicationContext(),Register.class);
+                startActivity(registerIntent);
 
             }
         });
