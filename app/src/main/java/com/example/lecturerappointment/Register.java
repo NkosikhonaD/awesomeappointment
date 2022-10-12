@@ -3,12 +3,14 @@ package com.example.lecturerappointment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,15 +54,25 @@ public class Register extends AppCompatActivity {
         preferdName = findViewById(R.id.edit_name);
         password= createPassword.getText().toString();
         password2= confirmPassword.getText().toString();
-
+        registerButton.setEnabled(true);
         if(!password.equals(password2))
         {
             Toast.makeText(this, "Passwords do not match, enter passwords again", Toast.LENGTH_SHORT).show();
+            createPassword.getText().clear();
+            confirmPassword.getText().clear();
             registerButton.setEnabled(false);
+        }
+
+        else if(password.equals(password2) && password.length()>7)
+        {
+            registerButton.setEnabled(true);
         }
         else
         {
-            registerButton.setEnabled(true);
+            Toast.makeText(this, "Password short, make passwords contain more that 8 characters , enter passwords again", Toast.LENGTH_SHORT).show();
+            createPassword.getText().clear();
+            confirmPassword.getText().clear();
+
         }
         registerButton.setOnClickListener(new View.OnClickListener()
         {
@@ -75,6 +87,7 @@ public class Register extends AppCompatActivity {
                 userMap.put("email",email);
                 userMap.put("password",password);
                 createNewUser(email,password);
+                Intent loginIn = new Intent(getApplicationContext(),Login.class);
 
             }
         });
