@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity {
                 userMap.put("email",email);
                 userMap.put("password",password);
                 createNewUser(email,password);
-                Intent loginIn = new Intent(getApplicationContext(),Login.class);
+
 
             }
         });
@@ -120,8 +120,18 @@ public class Register extends AppCompatActivity {
     // start activities according to login users.
     public void updateUI(FirebaseUser user)
     {
+        if(user!=null)
+        {
+            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(mainActivity);
+        }
+        else
+        {
+            reload();
+        }
 
     }
+
     public void onStart()
     {
         super.onStart();
@@ -133,6 +143,11 @@ public class Register extends AppCompatActivity {
     }
     public void reload()
     {
+        Toast.makeText(this, "invalid user", Toast.LENGTH_SHORT).show();
+        createPassword.getText().clear();
+        confirmPassword.getText().clear();
+        preferdName.getText().clear();
+        emailEdit.getText().clear();
 
     }
 }

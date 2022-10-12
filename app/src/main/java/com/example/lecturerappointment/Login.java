@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity
         userName = findViewById(R.id.edit_email);
         passowrd = findViewById(R.id.edit_password);
 
+        author = FirebaseAuth.getInstance();
         registerLink = findViewById(R.id.registerlink);
         registerLink.setText("Register");
         registerLink.setVisibility(View.VISIBLE);
@@ -51,7 +52,9 @@ public class Login extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                signIn(userName.getText().toString(),passowrd.getText().toString());
+                String p =passowrd.getText().toString() ;
+                String u = userName.getText().toString();
+                signIn(u,p);
 
             }
         });
@@ -60,11 +63,12 @@ public class Login extends AppCompatActivity
     }
     public void signIn(String email, String password)
     {
-        author.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        author.signInWithEmailAndPassword(email,password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful())
                 {
+                    Toast.makeText(Login.this,"authentication sussessful ",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = author.getCurrentUser();
                     updateUI(user);
 
@@ -72,6 +76,7 @@ public class Login extends AppCompatActivity
                 else
                 {
                     Toast.makeText(Login.this,"authentication failed ",Toast.LENGTH_SHORT).show();
+                    // forgot passord or needs to register
                     updateUI(null);
                 }
             }
@@ -84,9 +89,20 @@ public class Login extends AppCompatActivity
         {
             Toast.makeText(Login.this, "account doesnt exist click link below to register or reset password", Toast.LENGTH_SHORT).show();
             registerLink.setVisibility(View.VISIBLE);
-            registerLink.setEnabled(true);
             registerLink.setText("Register");
+            Intent registerIntent = new Intent(Login.this,Register.class);
+            startActivity(registerIntent);
+
         }
+        else
+        {
+            Toast.makeText(Login.this, "Log in successful", Toast.LENGTH_SHORT).show();
+            Intent mainActivity = new Intent(Login.this,MainActivity.class);
+            startActivity(mainActivity);
+
+
+        }
+
 
 
     }
