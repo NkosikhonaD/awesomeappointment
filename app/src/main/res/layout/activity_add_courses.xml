@@ -60,7 +60,7 @@
         android:id="@+id/button_save_course"
         android:layout_width="127dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
+        android:layout_marginStart="40dp"
         android:layout_marginBottom="134dp"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"

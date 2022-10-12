@@ -69,6 +69,7 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
            {
                case 0:
                    Toast.makeText(view.getContext(),"Add courses activity",Toast.LENGTH_SHORT).show();
+                   Intent addCourseIntent = new Intent(view.getContext(),AddCoursesActivity.class);
 
                    break;
                case 1:
@@ -83,9 +84,6 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
                case 4:
                    Toast.makeText(view.getContext(), "Notifications",Toast.LENGTH_SHORT).show();
                    break;
-
-
-
 
            }
 
