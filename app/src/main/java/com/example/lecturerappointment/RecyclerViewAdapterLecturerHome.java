@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,6 +63,31 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
         @Override
         public void onClick(View view)
         {
+            int position = this.getAdapterPosition();
+           switch(position)
+           {
+               case 0:
+                   Toast.makeText(view.getContext(),"Add courses activity",Toast.LENGTH_SHORT).show();
+                   break;
+               case 1:
+                   // here view slots and have options to add new slots
+                   Toast.makeText(view.getContext()," Slots view and add new slots activity",Toast.LENGTH_SHORT).show();
+                   break;
+               case 2:
+                   // chats
+                   Toast.makeText(view.getContext(),"chats",Toast.LENGTH_SHORT).show();
+                   break;
+               case 4:
+                   Toast.makeText(view.getContext(), "Notifications",Toast.LENGTH_SHORT).show();
+                   break;
+
+
+
+
+           }
+
+
+
 
         }
     }
