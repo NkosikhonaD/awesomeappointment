@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                 userMap.put("name",name);
                 userMap.put("email",email);
                 userMap.put("password",password);
-
+                createNewUser(email,password);
 
             }
         });
@@ -87,7 +87,7 @@ public class Register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Log.d("sign in completed","created account ");
+                    Log.d("sign up completed","created account ");
 
                     FirebaseUser user = createUser.getCurrentUser();
                     Toast.makeText(Register.this, "account created", Toast.LENGTH_SHORT).show();
