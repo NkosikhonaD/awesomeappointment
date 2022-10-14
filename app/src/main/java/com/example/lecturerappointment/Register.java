@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
     
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private  FirebaseAuth createUser;
-    private DatabaseReference rootNode = database.getReference();
+    private DatabaseReference databaseReference = database.getReference();
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,8 +85,8 @@ public class Register extends AppCompatActivity {
                 HashMap<String, String> userMap = new HashMap<>();
                 userMap.put("name",name);
                 userMap.put("email",email);
-                userMap.put("password",password);
                 createNewUser(email,password);
+                databaseReference.child("Users").push().setValue(userMap);
 
 
             }
@@ -104,6 +104,8 @@ public class Register extends AppCompatActivity {
 
                     FirebaseUser user = createUser.getCurrentUser();
                     Toast.makeText(Register.this, "account created", Toast.LENGTH_SHORT).show();
+
+
                     updateUI(user);
 
                 }
