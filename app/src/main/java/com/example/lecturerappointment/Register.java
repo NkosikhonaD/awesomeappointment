@@ -29,6 +29,7 @@ public class Register extends AppCompatActivity {
     private EditText confirmPassword;
     private EditText preferdName;
     private EditText emailEdit;
+    HashMap<String, String> userMap = new HashMap<>();
 
     String name, email, password, password2;
     
@@ -52,41 +53,48 @@ public class Register extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirm_passowrd);
         
         preferdName = findViewById(R.id.edit_name);
-        password= createPassword.getText().toString();
-        password2= confirmPassword.getText().toString();
+
         registerButton.setEnabled(true);
-        if(!password.equals(password2))
-        {
-            Toast.makeText(this, "Passwords do not match, enter passwords again", Toast.LENGTH_SHORT).show();
-            createPassword.getText().clear();
-            confirmPassword.getText().clear();
-            registerButton.setEnabled(false);
-        }
 
-        else if(password.equals(password2) && password.length()>7)
-        {
-            registerButton.setEnabled(true);
-        }
-        else
-        {
-            Toast.makeText(this, "Password short, make passwords contain more that 8 characters , enter passwords again", Toast.LENGTH_SHORT).show();
-            createPassword.getText().clear();
-            confirmPassword.getText().clear();
-
-        }
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+                password= createPassword.getText().toString();
+                password2= confirmPassword.getText().toString();
+
+                if(!password.equals(password2))
+                {
+                    Toast.makeText(Register.this, "Passwords do not match, enter passwords again", Toast.LENGTH_SHORT).show();
+                    createPassword.getText().clear();
+                    confirmPassword.getText().clear();
+                    registerButton.setEnabled(false);
+                    return;
+                }
+
+                else if(password.equals(password2) && password.length()<7)
+                {
+
+                    Toast.makeText(Register.this, "Password short, make passwords contain more that 8 characters , enter passwords again", Toast.LENGTH_SHORT).show();
+                    createPassword.getText().clear();
+                    confirmPassword.getText().clear();
+                    registerButton.setEnabled(false);
+                    return;
+                }
+                else
+                {
+                    registerButton.setEnabled(true);
+
+                }
+
+
                 name = preferdName.getText().toString();
                 email=emailEdit.getText().toString();
-                password= createPassword.getText().toString();
-                HashMap<String, String> userMap = new HashMap<>();
-                userMap.put("name",name);
-                userMap.put("email",email);
+
+
                 createNewUser(email,password);
-                databaseReference.child("Users").push().setValue(userMap);
+
 
 
             }
@@ -100,9 +108,13 @@ public class Register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    Log.d("sign up completed","created account ");
+
+
 
                     FirebaseUser user = createUser.getCurrentUser();
+                    userMap.put("name",name);
+                    userMap.put("email",email);
+                    databaseReference.child("Users").push().setValue(userMap);
                     Toast.makeText(Register.this, "account created", Toast.LENGTH_SHORT).show();
 
 
@@ -111,8 +123,8 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
-                    Log.w("Sign in unsuccesful",task.getException());
-                    Toast.makeText(Register.this, "account cannot be created", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(Register.this, "account1 cannot be created", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
@@ -124,8 +136,19 @@ public class Register extends AppCompatActivity {
     {
         if(user!=null)
         {
-            Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
-            startActivity(mainActivity);
+            String email = user.getEmail();
+            if(Character.isDigit(email.charAt(0)))
+            {
+                // put extra email,// name of student
+                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(mainActivity);
+            }
+            else
+            {
+                Intent lectureActivity = new Intent(getApplicationContext(),LecturerHome.class);
+                startActivity(lectureActivity);
+            }
+
         }
         else
         {

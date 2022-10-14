@@ -74,8 +74,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     break;
 
                 case 1:
-                    Intent addSlotIntent = new Intent(view.getContext(),LecturerAddSlot.class);
-                    context.startActivity(addSlotIntent);
+                    //Intent addSlotIntent = new Intent(view.getContext(),LecturerAddSlot.class);
+                    //context.startActivity(addSlotIntent);
+                    Toast.makeText(view.getContext(), "Send email to lecturer",Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
                     Toast.makeText(view.getContext(), "Class timetable clicked",Toast.LENGTH_SHORT).show();

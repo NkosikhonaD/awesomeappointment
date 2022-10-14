@@ -96,9 +96,22 @@ public class Login extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(Login.this, "Log in successful", Toast.LENGTH_SHORT).show();
-            Intent mainActivity = new Intent(Login.this,MainActivity.class);
-            startActivity(mainActivity);
+            String email = user.getEmail();
+            if(Character.isDigit(email.charAt(0)))
+            {
+                // put extra email,// name of student
+                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(mainActivity);
+            }
+            else
+            {
+                Intent lectureActivity = new Intent(getApplicationContext(),LecturerHome.class);
+                startActivity(lectureActivity);
+            }
+
+            //Toast.makeText(Login.this, "Log in successful", Toast.LENGTH_SHORT).show();
+            //Intent mainActivity = new Intent(Login.this,MainActivity.class);
+           // startActivity(mainActivity);
 
 
         }

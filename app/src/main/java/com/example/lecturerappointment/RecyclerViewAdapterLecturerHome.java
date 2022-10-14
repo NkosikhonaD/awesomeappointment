@@ -68,14 +68,14 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
            switch(position)
            {
                case 0:
-                   Toast.makeText(view.getContext(),"Add courses activity",Toast.LENGTH_SHORT).show();
                    Intent addCourseIntent = new Intent(view.getContext(),AddCoursesActivity.class);
+                   view.getContext().startActivity(addCourseIntent);
 
                    break;
                case 1:
                    // here view slots and have options to add new slots
-                   Toast.makeText(view.getContext()," Slots view and add new slots activity",Toast.LENGTH_SHORT).show();
                    Intent addSlot = new Intent(view.getContext(),LecturerAddSlot.class);
+                   view.getContext().startActivity(addSlot);
                    break;
                case 2:
                    // chats
@@ -86,8 +86,6 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
                    break;
 
            }
-
-
 
 
         }
