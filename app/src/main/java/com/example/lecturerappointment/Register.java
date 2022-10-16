@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -127,8 +128,26 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
+                    createUser.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                            boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+                            if(isNewUser)
+                            {
+                                Toast.makeText(Register.this,"Please  enter register details again",Toast.LENGTH_SHORT).show();
+                                reload();
+                            }
+                            else
+                            {
+                                Toast.makeText(Register.this,"account exits, please login or selet forgot password",Toast.LENGTH_SHORT).show();
+                                Intent login = new Intent(getApplicationContext(),Login.class);
+                                startActivity(login);
+                            }
 
-                    Toast.makeText(Register.this, "account1 cannot be created", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    Toast.makeText(Register.this, "account cannot be created", Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
@@ -177,8 +196,6 @@ public class Register extends AppCompatActivity {
         confirmPassword.getText().clear();
         preferdName.getText().clear();
         emailEdit.getText().clear();
-        Intent login = new Intent(getApplicationContext(),Login.class);
-        startActivity(login);
     }
     public void recoverPassword()
     {

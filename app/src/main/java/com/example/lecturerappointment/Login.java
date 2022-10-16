@@ -68,8 +68,8 @@ public class Login extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String p =passowrd.getText().toString() ;
-                String u = userName.getText().toString();
+                String p =passowrd.getText().toString().trim() ;
+                String u = userName.getText().toString().trim();
                 signIn(u,p);
 
             }
