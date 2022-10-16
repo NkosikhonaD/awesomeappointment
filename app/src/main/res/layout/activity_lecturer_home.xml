@@ -16,6 +16,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="44dp"
         android:scaleType="centerCrop"
+        android:background="@drawable/banner_background"
         app:layout_constraintBottom_toTopOf="@+id/recycler_lecturer_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
