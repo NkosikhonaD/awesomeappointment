@@ -221,9 +221,10 @@ public class LecturerAddSlot extends AppCompatActivity
             //check if slots does nt exist already.
             databaseReference.child("slots").push().setValue(slotsHashMap);
 
+            createSlotSlices(startTime,endTime,day,course,lectureEmail);
         }
 
-        createSlotSlices(startTime,endTime,day,course,lectureEmail);
+
 
     }
     public long getTimeDifference(String startTime, String endTime)
