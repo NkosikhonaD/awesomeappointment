@@ -101,7 +101,7 @@ public class AddCoursesActivity extends AppCompatActivity
                         courseCodeEdit.setVisibility(View.INVISIBLE);
                         saveButton.setBackgroundColor(AddCoursesActivity.this.getResources().getColor(colorRed));
                         saveButton.setTextColor(AddCoursesActivity.this.getResources().getColor(white));
-                        Toast.makeText(AddCoursesActivity.this,"click add to create new course or exit",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddCoursesActivity.this,"click Add to create another course or exit",Toast.LENGTH_LONG).show();
 
                     }
 
