@@ -1,14 +1,18 @@
 package com.example.lecturerappointment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -173,6 +177,52 @@ public class Register extends AppCompatActivity {
         confirmPassword.getText().clear();
         preferdName.getText().clear();
         emailEdit.getText().clear();
+        Intent login = new Intent(getApplicationContext(),Login.class);
+        startActivity(login);
+    }
+    public void recoverPassword()
+    {
+        LinearLayout linearLayout =new LinearLayout(Register.this);
+        linearLayout.setPadding(10,10,10,10);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
 
+        builder.setTitle("Recover password");
+        final EditText emailEditText = new EditText(Register.this);
+        emailEditText.setHint("enter your email");
+        emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+        linearLayout.addView(emailEditText);
+
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String email = emailEditText.getText().toString().trim();
+                beginRecovery(email);
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+    public void beginRecovery(String email)
+    {
+        createUser.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(Register.this,"Check your email",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 }

@@ -1,13 +1,19 @@
 package com.example.lecturerappointment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +47,14 @@ public class Login extends AppCompatActivity
         registerLink.setEnabled(true);
         loginButton = findViewById(R.id.button_login);
         forgotPassword = findViewById(R.id.forgot_assword);
-        forgotPassword.setVisibility(View.INVISIBLE);
+        forgotPassword.setEnabled(false);
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recoverPassword();
+            }
+        });
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -62,7 +75,6 @@ public class Login extends AppCompatActivity
             }
         });
 
-
     }
 
     public void signIn(String email, String password)
@@ -79,19 +91,65 @@ public class Login extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(Login.this,"authentication failed ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"authentication failed, click forgot password",Toast.LENGTH_SHORT).show();
                     // forgot passord or needs to register
+                    forgotPassword.setEnabled(true);
                     updateUI(null);
                 }
             }
         });
 
     }
+    public void recoverPassword()
+    {
+        LinearLayout linearLayout =new LinearLayout(Login.this);
+        linearLayout.setPadding(10,10,10,10);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+
+        builder.setTitle("Recover password");
+        final EditText emailEditText = new EditText(Login.this);
+        emailEditText.setHint("enter your email");
+        emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+
+        linearLayout.addView(emailEditText);
+
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String email = emailEditText.getText().toString().trim();
+                beginRecovery(email);
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+    public void beginRecovery(String email)
+    {
+        author.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(Login.this,"Check your email",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
     public void updateUI(FirebaseUser user)
     {
         if(user==null)
         {
-            Toast.makeText(Login.this, "account doesnt exist click link below to register or reset password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, "account does nt exist click link below to register", Toast.LENGTH_SHORT).show();
             registerLink.setVisibility(View.VISIBLE);
             registerLink.setText("Register");
             Intent registerIntent = new Intent(Login.this,Register.class);
