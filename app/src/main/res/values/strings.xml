@@ -19,6 +19,7 @@
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="save">Save</string>
+    <string name="forgot_passowrd">Forgot password</string>
     <string name="add_new_course">Add new course</string>
     <string name="enter_course_name">Enter course name</string>
     <string name="institution_email">Institution email</string>
@@ -61,4 +62,6 @@
     <string name="create_password">Create password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="save_b">Save</string>
+    <string name="register_view">register</string>
+    <string name="awesomeb">awesome</string>
 </resources>

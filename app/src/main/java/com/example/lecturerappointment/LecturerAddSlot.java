@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.TimePickerDialog;
 
 import android.os.Bundle;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,11 +22,23 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class LecturerAddSlot extends AppCompatActivity
 {
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseAuth loggedUser;
+    private DatabaseReference databaseReference = database.getReference();
+    private FirebaseUser currentUser;
 
     private RecyclerViewAdapterLecturer slotsRecyclerViewAdapter;
     private RecyclerView slotsRecylcerView;
@@ -45,7 +58,8 @@ public class LecturerAddSlot extends AppCompatActivity
     String daySelected;
     String courseSelected;
     private int currentHour, currentMinute;
-
+    HashMap<String,String> slotsHashMap;
+    HashMap<String,String> slotSlicesMap;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -73,7 +87,9 @@ public class LecturerAddSlot extends AppCompatActivity
         spinnerAdapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        
+        loggedUser= FirebaseAuth.getInstance();
+
+         currentUser = loggedUser.getCurrentUser();
 
         spinnerDay.setAdapter(spinnerAdapterWeekDays);
         spinnerCourse.setAdapter(spinnerAdapterCourses);
@@ -175,21 +191,85 @@ public class LecturerAddSlot extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                // write  all slots to database and exit
-                String day = daySelected;
-                String course = courseSelected;
-                String startTime = editTextStartTime.getText().toString();
-                String endTime = editTextEndTime.getText().toString();
-
-                consultationDataArrayList.add(new ConsultationData(day+" "+course,startTime,endTime));
-                slotsRecyclerViewAdapter.notifyItemInserted(consultationDataArrayList.size());
-                Toast.makeText(LecturerAddSlot.this, "slot saved", Toast.LENGTH_SHORT).show();
+                addNewSlot();
+                //Toast.makeText(LecturerAddSlot.this, "slot saved", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
     public void addNewSlot()
     {
-       // create a time picker here set the text of the start / end time to the time picked
+        String day = daySelected;
+        String course = courseSelected;
+        String startTime = editTextStartTime.getText().toString();
+        String endTime = editTextEndTime.getText().toString();
+        String lectureEmail= "";
+        consultationDataArrayList.add(new ConsultationData(day+" "+course,startTime,endTime));
+        slotsRecyclerViewAdapter.notifyItemInserted(consultationDataArrayList.size());
+        slotsHashMap= new HashMap<>();
+
+        long munites = getTimeDifference(startTime,endTime);
+        if(currentUser!=null&& munites>=10)
+        {
+            // check for same time same lecturer same course slots..
+            lectureEmail = currentUser.getEmail();
+            slotsHashMap.put("lecturer",lectureEmail);
+            slotsHashMap.put("course",course);
+            slotsHashMap.put("day",day);
+            slotsHashMap.put("starttime",startTime);
+            slotsHashMap.put("endtime",endTime);
+            //check if slots does nt exist already.
+            databaseReference.child("slots").push().setValue(slotsHashMap);
+
+        }
+
+        createSlotSlices(startTime,endTime,day,course,lectureEmail);
+
+    }
+    public long getTimeDifference(String startTime, String endTime)
+    {
+        long minutes = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+        {
+            minutes= (Duration.between(LocalTime.parse(startTime),LocalTime.parse(endTime)).getSeconds())/60;
+        }
+
+        return minutes;
+    }
+    public void createSlotSlices(String startTime, String endTime,String day,String course,String lecturer)
+    {
+        slotSlicesMap = new HashMap<>();
+        long minutes =getTimeDifference(startTime,endTime);
+        LocalTime start;
+        LocalTime slotEndTime = null;
+        String lectureEmail= currentUser.getEmail();
+        LocalTime end;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+           start = LocalTime.parse(startTime);
+           end = LocalTime.parse(endTime);
+            slotEndTime= start;
+        }
+        int totalSlots =(int)(minutes/15);
+        for(int i=0;i<totalSlots;i++)
+        {
+
+            slotSlicesMap.put("SlotName","Slot_slice"+(i+1));
+            slotSlicesMap.put("StartTime",slotEndTime.toString());
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
+            {
+                slotEndTime = slotEndTime.plusMinutes(15);
+                slotSlicesMap.put("EndTime",slotEndTime.toString());
+            }
+
+            slotSlicesMap.put("lecturer",lecturer);
+            slotSlicesMap.put("day",day);
+            slotSlicesMap.put("course", course);
+
+        }
+        databaseReference.child("Slot_slices").push().setValue(slotSlicesMap);
+        
+
+
+
     }
 }

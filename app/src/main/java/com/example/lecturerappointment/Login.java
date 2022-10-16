@@ -23,6 +23,7 @@ public class Login extends AppCompatActivity
     private EditText userName;
     private EditText passowrd;
     private TextView registerLink;
+    private TextView forgotPassword;
     private FirebaseAuth author;
     private int count;
     @Override
@@ -39,6 +40,8 @@ public class Login extends AppCompatActivity
         registerLink.setVisibility(View.VISIBLE);
         registerLink.setEnabled(true);
         loginButton = findViewById(R.id.button_login);
+        forgotPassword = findViewById(R.id.forgot_assword);
+        forgotPassword.setVisibility(View.INVISIBLE);
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -61,6 +64,7 @@ public class Login extends AppCompatActivity
 
 
     }
+
     public void signIn(String email, String password)
     {
         author.signInWithEmailAndPassword(email,password).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
