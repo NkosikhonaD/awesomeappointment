@@ -2,6 +2,7 @@ package com.example.lecturerappointment;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.*;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +25,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -51,7 +55,7 @@ public class LecturerAddSlot extends AppCompatActivity
 
     private Button setStartTimeButton;
     private Button setEndTimeButton;
-
+    ArrayAdapter<CharSequence> adapter;
     private EditText editTextStartTime;
     private EditText editTextEndTime;
     private String timeSelected;
@@ -78,27 +82,35 @@ public class LecturerAddSlot extends AppCompatActivity
 
         editTextStartTime = findViewById(R.id.start_time_edit);
         editTextEndTime= findViewById(R.id.edit_end_time);
-        // These courses should come from database
-        ArrayAdapter<CharSequence> spinnerAdapterCourses = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.courses_registered, android.R.layout.simple_spinner_item);
-
-        // Week day should come from selection made by user from the grid time table.
-        ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
-
-        spinnerAdapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         loggedUser= FirebaseAuth.getInstance();
 
-         currentUser = loggedUser.getCurrentUser();
+        currentUser = loggedUser.getCurrentUser();
+        // These courses should come from database
+        ArrayList<CharSequence> courseList = pupulateCoursesAdapter();
+
+          adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,courseList);
+
+          //adapter=ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.courses_registered, android.R.layout.simple_spinner_item);
+
+        //pupulateCoursesAdapter();
+         // Week day should come from selection made by user from the grid time table.
+
+        ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
 
         spinnerDay.setAdapter(spinnerAdapterWeekDays);
-        spinnerCourse.setAdapter(spinnerAdapterCourses);
-
+        spinnerCourse.setAdapter(adapter);
+        spinnerCourse.setSelection(0);
         spinnerCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
             {
-                courseSelected = spinnerAdapterCourses.getItem(position).toString();
+                courseSelected = adapter.getItem(position).toString();
             }
 
             @Override
@@ -265,12 +277,34 @@ public class LecturerAddSlot extends AppCompatActivity
             slotSlicesMap.put("lecturer",lecturer);
             slotSlicesMap.put("day",day);
             slotSlicesMap.put("course", course);
-
+            slotSlicesMap.put("student","student");
+            databaseReference.child("Slot_slices").push().setValue(slotSlicesMap);
         }
-        databaseReference.child("Slot_slices").push().setValue(slotSlicesMap);
-        
 
 
+    }
+    public ArrayList<CharSequence> pupulateCoursesAdapter() {
+        String emailLogged = currentUser.getEmail();
+        ArrayList<CharSequence> courses = new ArrayList<>();
+        databaseReference.child("courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                courses.clear();
+                courses.add("All");
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String key = child.getKey();
+                    Course course = child.getValue(Course.class);
+                    if (course.getLecturer().equals(emailLogged)) {
+                        courses.add(course.getCourseCode());
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return courses;
     }
 }

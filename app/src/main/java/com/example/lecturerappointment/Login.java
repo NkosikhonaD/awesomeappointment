@@ -3,9 +3,6 @@ package com.example.lecturerappointment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,7 +81,7 @@ public class Login extends AppCompatActivity
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful())
                 {
-                    Toast.makeText(Login.this,"authentication sussessful ",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"authentication successful",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = author.getCurrentUser();
                     updateUI(user);
 
@@ -92,13 +89,12 @@ public class Login extends AppCompatActivity
                 else
                 {
                     Toast.makeText(Login.this,"authentication failed, click forgot password",Toast.LENGTH_SHORT).show();
-                    // forgot passord or needs to register
+                    // forgot password or needs to register
                     forgotPassword.setEnabled(true);
                     updateUI(null);
                 }
             }
         });
-
     }
     public void recoverPassword()
     {
@@ -108,7 +104,7 @@ public class Login extends AppCompatActivity
 
         builder.setTitle("Recover password");
         final EditText emailEditText = new EditText(Login.this);
-        emailEditText.setHint("enter your email");
+        emailEditText.setHint("Enter your email");
         emailEditText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         linearLayout.addView(emailEditText);

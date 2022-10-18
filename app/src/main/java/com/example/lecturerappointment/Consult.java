@@ -1,5 +1,6 @@
 package com.example.lecturerappointment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class Consult extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -19,17 +29,38 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
     private RecyclerViewAdapterTimeTable timeTableRecylcerViewAdapter;
     private RecyclerView timeTableRecylerView;
     private ArrayList<ConsultationData> timeTableDataList;
+    ArrayAdapter<CharSequence> adapter ;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    private DatabaseReference databaseReference = database.getReference();
+    private DatabaseReference courseDatabaseReference = database.getReference().child("courses");
+
+    private FirebaseAuth loggedUser;
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consult);
         Spinner spinner = findViewById(R.id.spinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.courses_registered, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
-        // add onlick lister to the course drowp down/ get the drop down elements from database
+        loggedUser = FirebaseAuth.getInstance();
+        currentUser = loggedUser.getCurrentUser();
+
+        ArrayList<CharSequence> courseList = pupulateCoursesAdapter();
+
+        adapter= new ArrayAdapter<>(Consult.this,android.R.layout.simple_spinner_item,courseList);
+        //adapter = ArrayAdapter.createFromResource(this, R.array.courses_registered, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+
+        // add on slick lister to the course drown down / get the drop down elements from database
+        //
         timeTableRecylerView = findViewById(R.id.timetable_recycler);
 
         timeTableDataList= new ArrayList<>();
@@ -39,7 +70,6 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
         timeTableRecylerView.setLayoutManager(layoutManager);
 
         timeTableRecylerView.setAdapter(timeTableRecylcerViewAdapter);
-
     }
 
     /**
@@ -129,5 +159,29 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
     public void onNothingSelected(AdapterView<?> adapterView)
     {
 
+    }
+    public ArrayList<CharSequence> pupulateCoursesAdapter() {
+        String emailLogged = currentUser.getEmail();
+        ArrayList<CharSequence> courses = new ArrayList<>();
+        databaseReference.child("courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                courses.clear();
+                courses.add("All");
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    String key = child.getKey();
+                    Course course = child.getValue(Course.class);
+                    if (course.getLecturer().equals(emailLogged)) {
+                        courses.add(course.getCourseCode());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return courses;
     }
 }

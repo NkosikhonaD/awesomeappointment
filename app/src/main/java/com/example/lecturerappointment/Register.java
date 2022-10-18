@@ -75,7 +75,7 @@ public class Register extends AppCompatActivity {
                     createPassword.getText().clear();
                     confirmPassword.getText().clear();
                     registerButton.setEnabled(false);
-                    return;
+
                 }
 
                 else if(password.equals(password2) && password.length()<7)
@@ -85,7 +85,7 @@ public class Register extends AppCompatActivity {
                     createPassword.getText().clear();
                     confirmPassword.getText().clear();
                     registerButton.setEnabled(false);
-                    return;
+
                 }
                 else
                 {

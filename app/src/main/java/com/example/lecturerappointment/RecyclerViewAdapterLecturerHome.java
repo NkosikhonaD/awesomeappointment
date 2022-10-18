@@ -84,10 +84,7 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
                case 4:
                    Toast.makeText(view.getContext(), "Notifications",Toast.LENGTH_SHORT).show();
                    break;
-
            }
-
-
         }
     }
 }
