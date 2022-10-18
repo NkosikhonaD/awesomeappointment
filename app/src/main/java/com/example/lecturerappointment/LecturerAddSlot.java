@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.TimePickerDialog;
 
 import android.os.Bundle;
-import android.view.HapticFeedbackConstants;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,18 +31,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class LecturerAddSlot extends AppCompatActivity
 {
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database;
     private FirebaseAuth loggedUser;
-    private DatabaseReference databaseReference = database.getReference();
+    private DatabaseReference databaseReference;
     private FirebaseUser currentUser;
+
+    private List<CharSequence> keysList;
 
     private RecyclerViewAdapterLecturer slotsRecyclerViewAdapter;
     private RecyclerView slotsRecylcerView;
@@ -64,11 +68,17 @@ public class LecturerAddSlot extends AppCompatActivity
     private int currentHour, currentMinute;
     HashMap<String,String> slotsHashMap;
     HashMap<String,String> slotSlicesMap;
+    private List<CharSequence> coursesSpinnerList;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_add_slot);
+
+
+        coursesSpinnerList= new ArrayList<>();
+        keysList = new ArrayList<>();
+
         spinnerDay = findViewById(R.id.spinnerday);
         spinnerCourse =findViewById(R.id.spinnercourse);
         timeSelected ="Default time";
@@ -86,11 +96,12 @@ public class LecturerAddSlot extends AppCompatActivity
         loggedUser= FirebaseAuth.getInstance();
 
         currentUser = loggedUser.getCurrentUser();
-        // These courses should come from database
-        ArrayList<CharSequence> courseList = pupulateCoursesAdapter();
 
-          adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,courseList);
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("courses");
 
+        adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,coursesSpinnerList);
+        //adapter.notifyDataSetChanged();
           //adapter=ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.courses_registered, android.R.layout.simple_spinner_item);
 
         //pupulateCoursesAdapter();
@@ -98,19 +109,25 @@ public class LecturerAddSlot extends AppCompatActivity
 
         ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //adapter.setNotifyOnChange(true);
+        //adapter.notifyDataSetChanged();
 
 
         spinnerDay.setAdapter(spinnerAdapterWeekDays);
-        spinnerCourse.setAdapter(adapter);
-        spinnerCourse.setSelection(0);
+        //spinnerDay.setSelection(0);
+        //spinnerCourse.setAdapter(adapter);
+        showData();
+        //spinnerCourse.setSelection(0);
+
         spinnerCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
             {
                 courseSelected = adapter.getItem(position).toString();
+                spinnerCourse.setSelection(position);
             }
 
             @Override
@@ -239,6 +256,36 @@ public class LecturerAddSlot extends AppCompatActivity
 
 
     }
+    // this will be called on changedData;
+
+    private void showData()
+    {
+        String currentEmail = currentUser.getEmail();
+
+        keysList.clear();
+        coursesSpinnerList.clear();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                    Course course = dataSnapshot.getValue(Course.class);
+                    if(currentEmail.equals(course.getLecturer())) {
+                        coursesSpinnerList.add(course.getCourseCode());
+                        keysList.add(dataSnapshot.getKey());
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        spinnerCourse.setAdapter(adapter);
+    }
+
     public long getTimeDifference(String startTime, String endTime)
     {
         long minutes = 0;
@@ -281,30 +328,7 @@ public class LecturerAddSlot extends AppCompatActivity
             databaseReference.child("Slot_slices").push().setValue(slotSlicesMap);
         }
 
-
     }
-    public ArrayList<CharSequence> pupulateCoursesAdapter() {
-        String emailLogged = currentUser.getEmail();
-        ArrayList<CharSequence> courses = new ArrayList<>();
-        databaseReference.child("courses").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                courses.clear();
-                courses.add("All");
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    String key = child.getKey();
-                    Course course = child.getValue(Course.class);
-                    if (course.getLecturer().equals(emailLogged)) {
-                        courses.add(course.getCourseCode());
-                    }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-        return courses;
-    }
 }

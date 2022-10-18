@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity
     private TextView registerLink;
     private TextView forgotPassword;
     private FirebaseAuth author;
-    private int count;
+    private int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -148,8 +148,8 @@ public class Login extends AppCompatActivity
             Toast.makeText(Login.this, "account does nt exist click link below to register", Toast.LENGTH_SHORT).show();
             registerLink.setVisibility(View.VISIBLE);
             registerLink.setText("Register");
-            Intent registerIntent = new Intent(Login.this,Register.class);
-            startActivity(registerIntent);
+            //Intent registerIntent = new Intent(Login.this,Register.class);
+            //startActivity(registerIntent);
 
         }
         else

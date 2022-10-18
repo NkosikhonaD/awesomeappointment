@@ -29,12 +29,14 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
     private RecyclerViewAdapterTimeTable timeTableRecylcerViewAdapter;
     private RecyclerView timeTableRecylerView;
     private ArrayList<ConsultationData> timeTableDataList;
-    ArrayAdapter<CharSequence> adapter ;
+    private ArrayAdapter<CharSequence> adapter ;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-
+    private ArrayList<CharSequence> courseList;
+    private ArrayList<CharSequence> keysList;
     private DatabaseReference databaseReference = database.getReference();
-    private DatabaseReference courseDatabaseReference = database.getReference().child("courses");
+    private DatabaseReference courseDatabaseReference = database.getReference("courses");
 
+    private  Spinner spinner;
     private FirebaseAuth loggedUser;
     private FirebaseUser currentUser;
 
@@ -42,21 +44,20 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consult);
-        Spinner spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinner);
 
 
         loggedUser = FirebaseAuth.getInstance();
         currentUser = loggedUser.getCurrentUser();
 
-        ArrayList<CharSequence> courseList = pupulateCoursesAdapter();
-
+        courseList= new ArrayList<>();
+        keysList = new ArrayList<>();
         adapter= new ArrayAdapter<>(Consult.this,android.R.layout.simple_spinner_item,courseList);
-        //adapter = ArrayAdapter.createFromResource(this, R.array.courses_registered, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        spinner.setAdapter(adapter);
+
+        showData();
         spinner.setSelection(0);
 
         // add on slick lister to the course drown down / get the drop down elements from database
@@ -160,21 +161,24 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
     {
 
     }
-    public ArrayList<CharSequence> pupulateCoursesAdapter() {
-        String emailLogged = currentUser.getEmail();
-        ArrayList<CharSequence> courses = new ArrayList<>();
-        databaseReference.child("courses").addValueEventListener(new ValueEventListener() {
+    private void showData()
+    {
+        String currentEmail = currentUser.getEmail();
+
+        keysList.clear();
+        courseList.clear();
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                courses.clear();
-                courses.add("All");
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    String key = child.getKey();
-                    Course course = child.getValue(Course.class);
-                    if (course.getLecturer().equals(emailLogged)) {
-                        courses.add(course.getCourseCode());
+                for (DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                    Course course = dataSnapshot.getValue(Course.class);
+                    if(currentEmail.equals(course.getLecturer())) {
+                        courseList.add(course.getCourseCode());
+                        keysList.add(dataSnapshot.getKey());
                     }
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -182,6 +186,6 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
 
             }
         });
-        return courses;
+        spinner.setAdapter(adapter);
     }
 }

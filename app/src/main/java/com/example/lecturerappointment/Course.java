@@ -10,13 +10,6 @@ public class Course
     {
     }
 
-    public Course(String courseCode, String courseName, String lecturer)
-    {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.lecturer = lecturer;
-    }
-
     public String getCourseCode() {
         return courseCode;
     }

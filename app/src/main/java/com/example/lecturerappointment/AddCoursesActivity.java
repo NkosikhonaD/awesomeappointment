@@ -71,16 +71,15 @@ public class AddCoursesActivity extends AppCompatActivity
                 if(saveButton.getText().toString().equals("Save"))
                 {
                     String courseName = courseNameEdit.getText().toString();
-                    String courseCode = courseNameEdit.getText().toString();
+                    String courseCode = courseCodeEdit.getText().toString();
                     if(courseName.trim().isEmpty())
                     {
                         courseNameEdit.setError("Course name cannot be empty");
-                        return;
                     }
                     if(courseCode.trim().isEmpty())
                     {
-                        courseNameEdit.setError(" Course Code code cannot be empty");
-                        return;
+                        courseCodeEdit.setError(" Course Code code cannot be empty");
+
                     }
                     else
                     {
