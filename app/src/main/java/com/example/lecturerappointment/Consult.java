@@ -102,21 +102,44 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
-        spinner.setSelection(0);
+
 
         // add on slick lister to the course drown down / get the drop down elements from database
         //
         timeTableRecylerView = findViewById(R.id.timetable_recycler);
 
         timeTableDataList= new ArrayList<>();
+
         addTimeTableData();
+
         showDataCoursesSpinner();
+
         timeTableRecylcerViewAdapter = new RecyclerViewAdapterTimeTable(timeTableDataList,this);
         GridLayoutManager layoutManager = new GridLayoutManager(this,7);
         timeTableRecylerView.setLayoutManager(layoutManager);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+              String  course = adapterView.getItemAtPosition(position).toString();
+                showDataTimeTableSlots(course,timeTableDataList);
+            }
 
-        showDataTimeTableSlots(spinner.getSelectedItem().toString(),timeTableDataList);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        //spinner.setSelection(0);
+        if(spinner.getSelectedItem()!=null)
+        {
+            showDataTimeTableSlots(spinner.getSelectedItem().toString(),timeTableDataList);
+
+        }
+        //timeTableRecylerView.setAdapter(timeTableRecylcerViewAdapter);
+
+
+
 
     }
 
@@ -128,6 +151,7 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
 
     private void updateTimeTableData(ArrayList<ConsultationData> currentConsultationDataList, String day,String startTime,String endTime)
     {
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalTime start = LocalTime.parse(startTime);
             LocalTime end = LocalTime.parse(endTime);
@@ -394,12 +418,18 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
 
     }
 
-    private void showDataTimeTableSlots(String courseCode,ArrayList<ConsultationData>   currentconsultationDataArrayList)
+    private void showDataTimeTableSlots(String courseCode,ArrayList<ConsultationData>  currentconsultationDataArrayList)
     {
+        timeTableDataList.set(0,new ConsultationData("Slots"));
+        timeTableDataList.set(1,new ConsultationData("8-10"));
+        timeTableDataList.set(2,new ConsultationData("10-12"));
+        timeTableDataList.set(3,new ConsultationData("12-2"));
+        timeTableDataList.set(4,new ConsultationData("2-4"));
+        timeTableDataList.set(5,new ConsultationData("4-6"));
+        timeTableDataList.set(6,new ConsultationData("6-8"));
         String currentEmail = currentUser.getEmail();
         keyListSlotSlices.clear();
         courseListSlices.clear();
-
         slotEndTimeList.clear();
         slotStartTimeList.clear();
         slotStudentList.clear();
@@ -489,7 +519,7 @@ public class Consult extends AppCompatActivity implements AdapterView.OnItemSele
 
             }
         });
-
+        timeTableRecylerView.setAdapter(timeTableRecylcerViewAdapter);
         //spinner.setAdapter(adapter);
     }
     private void showDataCoursesSpinner()
