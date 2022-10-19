@@ -8,14 +8,6 @@ public class SlotClass
     String endtime;
     String course;
 
-    public SlotClass(String lecturer, String day, String starttime, String endtime, String course) {
-        this.lecturer = lecturer;
-        this.day = day;
-        this.starttime = starttime;
-        this.endtime = endtime;
-        this.course = course;
-    }
-
     public SlotClass()
     {
 

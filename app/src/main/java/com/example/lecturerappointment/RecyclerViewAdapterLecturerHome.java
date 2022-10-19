@@ -74,8 +74,8 @@ public class RecyclerViewAdapterLecturerHome extends RecyclerView.Adapter<Recycl
                    break;
                case 1:
                    // here view slots and have options to add new slots
-                   Intent addSlot = new Intent(view.getContext(),LecturerAddSlot.class);
-                   view.getContext().startActivity(addSlot);
+                   Intent consult = new Intent(view.getContext(),Consult.class);
+                   view.getContext().startActivity(consult);
                    break;
                case 2:
                    // chats

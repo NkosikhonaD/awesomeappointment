@@ -8,41 +8,31 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="205dp"
+        android:layout_width="177dp"
         android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="31dp"
         android:contentDescription="@string/select_course"
         app:layout_constraintBottom_toTopOf="@+id/timetable_recycler"
+        app:layout_constraintEnd_toStartOf="@+id/create_slot"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="334dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="41dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="22dp"
-        android:text="@string/make_booking"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="280dp"
-        android:layout_height="116dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="13dp"
+        android:layout_width="370dp"
+        android:layout_height="152dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/banner_background"
         android:contentDescription="@string/awesome_banner"
         android:scaleType="centerCrop"
-        android:background="@drawable/banner_background"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/create_slot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,12 +42,24 @@
         android:id="@+id/timetable_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="33dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/create_slot" />
+
+    <Button
+        android:id="@+id/create_slot"
+        android:layout_width="148dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/new_slot"
+        app:layout_constraintBottom_toTopOf="@+id/timetable_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

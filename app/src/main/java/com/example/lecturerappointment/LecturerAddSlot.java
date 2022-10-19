@@ -166,7 +166,7 @@ public class LecturerAddSlot extends AppCompatActivity
                 final Calendar c = Calendar.getInstance();
                 currentHour = c.get(Calendar.HOUR);
                 currentMinute = c.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this, new TimePickerDialog.OnTimeSetListener()
+                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this,1, new TimePickerDialog.OnTimeSetListener()
                 {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute)
@@ -189,16 +189,18 @@ public class LecturerAddSlot extends AppCompatActivity
                 int h = Integer.parseInt(time.split(":")[0]);
                 int m = Integer.parseInt(time.split(":")[1]);
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this, new TimePickerDialog.OnTimeSetListener()
+                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this,1, new TimePickerDialog.OnTimeSetListener()
                 {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute)
                     {
+
                         String time = String.format("%02d",hour)+":"+String.format("%02d",minute);
                         editTextEndTime.setText(time);
                     }
                 },h,m,true);
                 timePickerDialog.setTitle("Set End time");
+
                 timePickerDialog.show();
             }
         });
