@@ -43,7 +43,8 @@ public class LecturerAddSlot extends AppCompatActivity
 {
     private FirebaseDatabase database;
     private FirebaseAuth loggedUser;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReferenceCourses;
+    private DatabaseReference databaseReferenceSlotScices;
     private FirebaseUser currentUser;
 
     private List<CharSequence> keysList;
@@ -98,8 +99,8 @@ public class LecturerAddSlot extends AppCompatActivity
         currentUser = loggedUser.getCurrentUser();
 
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("courses");
-
+        databaseReferenceCourses = database.getReference("courses");
+        databaseReferenceSlotScices =database.getReference("Slot_slices");
         adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,coursesSpinnerList);
 
         ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
@@ -231,7 +232,7 @@ public class LecturerAddSlot extends AppCompatActivity
             slotsHashMap.put("starttime",startTime);
             slotsHashMap.put("endtime",endTime);
             //check if slots does nt exist already.
-            databaseReference.child("slots").push().setValue(slotsHashMap);
+            databaseReferenceCourses.push().setValue(slotsHashMap);
 
             createSlotSlices(startTime,endTime,day,course,lectureEmail);
         }
@@ -239,7 +240,6 @@ public class LecturerAddSlot extends AppCompatActivity
 
 
     }
-    // this will be called on changedData;
 
     private void showData()
     {
@@ -247,7 +247,7 @@ public class LecturerAddSlot extends AppCompatActivity
 
         keysList.clear();
         coursesSpinnerList.clear();
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReferenceCourses.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren())
@@ -309,7 +309,7 @@ public class LecturerAddSlot extends AppCompatActivity
             slotSlicesMap.put("day",day);
             slotSlicesMap.put("course", course);
             slotSlicesMap.put("student","student");
-            databaseReference.child("Slot_slices").push().setValue(slotSlicesMap);
+            databaseReferenceSlotScices.push().setValue(slotSlicesMap);
         }
 
     }
