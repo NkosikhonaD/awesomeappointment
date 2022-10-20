@@ -22,7 +22,6 @@
         app:layout_constraintHorizontal_bias="0.215"
         app:layout_constraintStart_toStartOf="@+id/create_password"
         app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/edit_email_inst"
         android:layout_width="336dp"
@@ -36,7 +35,6 @@
         app:layout_constraintBottom_toTopOf="@+id/create_password"
         app:layout_constraintStart_toStartOf="@+id/edit_name"
         app:layout_constraintTop_toBottomOf="@+id/edit_name" />
-
     <EditText
         android:id="@+id/create_password"
         android:layout_width="333dp"
@@ -46,6 +44,8 @@
         android:ems="10"
         android:hint="@string/create_password"
         android:inputType="textPassword"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black"
         android:minHeight="48dp"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/confirm_passowrd"
@@ -60,7 +60,6 @@
         android:layout_marginBottom="97dp"
         android:ems="10"
         android:hint="@string/confirm_password"
-        android:inputType="textPassword"
         android:minHeight="48dp"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/button_register"

@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/save" />
+        app:layout_constraintTop_toBottomOf="@+id/add" />
 
     <Spinner
         android:id="@+id/spinnerday"
@@ -38,95 +38,77 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="53dp"
+        android:layout_marginBottom="55dp"
         android:contentDescription="@string/select_day"
-        app:layout_constraintBottom_toTopOf="@+id/button_start_time"
+        app:layout_constraintBottom_toTopOf="@+id/start_time_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnercourse" />
 
     <ImageView
         android:id="@+id/add"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="67dp"
-        android:contentDescription="@string/add"
-        app:layout_constraintBottom_toBottomOf="@+id/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/save"
-        app:layout_constraintTop_toTopOf="@+id/save"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        app:tint="@color/design_default_color_primary" />
-
-    <ImageView
-        android:id="@+id/save"
-        android:layout_width="0dp"
+        android:layout_width="54dp"
         android:layout_height="0dp"
         android:layout_marginStart="36dp"
-        android:layout_marginEnd="200dp"
-        android:layout_marginBottom="58dp"
-        android:contentDescription="@string/save"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="@string/add"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewLTimeTable"
-        app:layout_constraintEnd_toStartOf="@+id/add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_end_time"
-        app:srcCompat="@android:drawable/ic_menu_save"
+        app:layout_constraintTop_toBottomOf="@+id/edit_end_time"
+        app:srcCompat="@drawable/ic_baseline_add_24"
         app:tint="@color/design_default_color_primary" />
 
     <Button
         android:id="@+id/button_start_time"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="67dp"
         android:layout_marginStart="36dp"
         android:layout_marginEnd="43dp"
-        android:layout_marginBottom="33dp"
         android:text="@string/set_start_time"
-        app:layout_constraintBottom_toTopOf="@+id/button_end_time"
+        app:layout_constraintBaseline_toBaselineOf="@+id/start_time_edit"
         app:layout_constraintEnd_toStartOf="@+id/start_time_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerday" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_end_time"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="67dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginBottom="39dp"
         android:text="@string/set_end_time"
-        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintBaseline_toBaselineOf="@+id/edit_end_time"
         app:layout_constraintEnd_toStartOf="@+id/edit_end_time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_start_time" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/start_time_edit"
         android:layout_width="0dp"
-        android:layout_height="61dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="47dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/start_time"
         android:inputType="time"
         android:textColorHint="#757575"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button_start_time"
+        app:layout_constraintBottom_toTopOf="@+id/edit_end_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_start_time"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerday" />
 
     <EditText
         android:id="@+id/edit_end_time"
         android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="47dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="53dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="42dp"
         android:ems="10"
         android:hint="@string/end_time"
+        android:importantForAutofill="no"
         android:inputType="time"
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_end_time"
-        app:layout_constraintTop_toBottomOf="@+id/start_time_edit"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/start_time_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,7 +54,7 @@ public class LecturerAddSlot extends AppCompatActivity
     private Spinner spinnerCourse;
     private RecyclerViewAdapterLecturer.OnItemClickLister onItemClickLister;
     private ArrayList<ConsultationData> consultationDataArrayList;
-    private ImageView save;
+
     private ImageView add;
 
     private Button setStartTimeButton;
@@ -82,7 +82,7 @@ public class LecturerAddSlot extends AppCompatActivity
         spinnerDay = findViewById(R.id.spinnerday);
         spinnerCourse =findViewById(R.id.spinnercourse);
         timeSelected ="Default time";
-        save = findViewById(R.id.save);
+
         add = findViewById(R.id.add);
         daySelected= "Default day";
         courseSelected= "Default course";
@@ -101,26 +101,16 @@ public class LecturerAddSlot extends AppCompatActivity
         databaseReference = database.getReference("courses");
 
         adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,coursesSpinnerList);
-        //adapter.notifyDataSetChanged();
-          //adapter=ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.courses_registered, android.R.layout.simple_spinner_item);
-
-        //pupulateCoursesAdapter();
-         // Week day should come from selection made by user from the grid time table.
 
         ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
 
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //adapter.setNotifyOnChange(true);
-        //adapter.notifyDataSetChanged();
+        spinnerAdapterWeekDays.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
         spinnerDay.setAdapter(spinnerAdapterWeekDays);
-        //spinnerDay.setSelection(0);
-        //spinnerCourse.setAdapter(adapter);
+        spinnerCourse.setAdapter(adapter);
         showData();
-        //spinnerCourse.setSelection(0);
 
         spinnerCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -184,7 +174,6 @@ public class LecturerAddSlot extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                //final Calendar c = Calendar.getInstance();
                 String  time = editTextStartTime.getText().toString();
                 int h = Integer.parseInt(time.split(":")[0]);
                 int m = Integer.parseInt(time.split(":")[1]);
@@ -208,6 +197,7 @@ public class LecturerAddSlot extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                addNewSlot();
                 // clear selections
                 spinnerDay.setSelection(0);
                 spinnerCourse.setSelection(0);
@@ -215,15 +205,6 @@ public class LecturerAddSlot extends AppCompatActivity
                 editTextStartTime.setText("00:00");
 
                 Toast.makeText(LecturerAddSlot.this, "Create a new slot, select Course, Day and Times", Toast.LENGTH_SHORT).show();
-            }
-        });
-        save.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                addNewSlot();
-                //Toast.makeText(LecturerAddSlot.this, "slot saved", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -285,6 +266,7 @@ public class LecturerAddSlot extends AppCompatActivity
 
             }
         });
+        //adapter.notifyDataSetChanged();
         spinnerCourse.setAdapter(adapter);
     }
 
