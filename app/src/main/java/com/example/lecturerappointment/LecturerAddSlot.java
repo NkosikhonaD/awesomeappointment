@@ -41,10 +41,11 @@ import java.util.List;
 
 public class LecturerAddSlot extends AppCompatActivity
 {
-    private FirebaseDatabase database;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();;
     private FirebaseAuth loggedUser;
-    private DatabaseReference databaseReferenceCourses;
-    private DatabaseReference databaseReferenceSlotScices;
+    private DatabaseReference databaseReferenceCourses = database.getReference("courses");;
+    private DatabaseReference databaseReferenceSlotScices= database.getReference("Slot_slices");
+    private DatabaseReference databaseReferenceSlots= database.getReference("slots");
     private FirebaseUser currentUser;
 
     private List<CharSequence> keysList;
@@ -55,6 +56,10 @@ public class LecturerAddSlot extends AppCompatActivity
     private Spinner spinnerCourse;
     private RecyclerViewAdapterLecturer.OnItemClickLister onItemClickLister;
     private ArrayList<ConsultationData> consultationDataArrayList;
+
+
+    //databaseReferenceCourses
+
 
     private ImageView add;
 
@@ -69,7 +74,7 @@ public class LecturerAddSlot extends AppCompatActivity
     private int currentHour, currentMinute;
     HashMap<String,String> slotsHashMap;
     HashMap<String,String> slotSlicesMap;
-    private List<CharSequence> coursesSpinnerList;
+    private ArrayList<CharSequence> coursesSpinnerList;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -98,10 +103,9 @@ public class LecturerAddSlot extends AppCompatActivity
 
         currentUser = loggedUser.getCurrentUser();
 
-        database = FirebaseDatabase.getInstance();
-        databaseReferenceCourses = database.getReference("courses");
-        databaseReferenceSlotScices =database.getReference("Slot_slices");
+
         adapter = new ArrayAdapter<CharSequence>(LecturerAddSlot.this, android.R.layout.simple_spinner_item,coursesSpinnerList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<CharSequence> spinnerAdapterWeekDays = ArrayAdapter.createFromResource(LecturerAddSlot.this,R.array.week_days,android.R.layout.simple_spinner_item) ;
 
@@ -110,15 +114,18 @@ public class LecturerAddSlot extends AppCompatActivity
 
 
         spinnerDay.setAdapter(spinnerAdapterWeekDays);
-        spinnerCourse.setAdapter(adapter);
+        //spinnerCourse.setAdapter(adapter);
         showData();
 
         spinnerCourse.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l)
             {
-                courseSelected = adapter.getItem(position).toString();
-                spinnerCourse.setSelection(position);
+
+                    courseSelected = adapter.getItem(position).toString();
+
+
+                //spinnerCourse.setSelection(position);
             }
 
             @Override
@@ -126,6 +133,7 @@ public class LecturerAddSlot extends AppCompatActivity
 
             }
         });
+
 
         spinnerDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -200,8 +208,8 @@ public class LecturerAddSlot extends AppCompatActivity
             {
                 addNewSlot();
                 // clear selections
-                spinnerDay.setSelection(0);
-                spinnerCourse.setSelection(0);
+                //spinnerDay.setSelection(0);
+                //spinnerCourse.setSelection(0);
                 editTextEndTime.setText("00:00");
                 editTextStartTime.setText("00:00");
 
@@ -232,7 +240,7 @@ public class LecturerAddSlot extends AppCompatActivity
             slotsHashMap.put("starttime",startTime);
             slotsHashMap.put("endtime",endTime);
             //check if slots does nt exist already.
-            databaseReferenceCourses.push().setValue(slotsHashMap);
+            databaseReferenceSlots.push().setValue(slotsHashMap);
 
             createSlotSlices(startTime,endTime,day,course,lectureEmail);
         }

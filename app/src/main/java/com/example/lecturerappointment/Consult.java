@@ -81,7 +81,7 @@ public class Consult extends AppCompatActivity {
         createSlotButton = findViewById(R.id.create_slot);
         adapter= new ArrayAdapter<>(Consult.this,android.R.layout.simple_spinner_item,courseList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        showDataCoursesSpinner();
         if(Character.isDigit(currentUser.getEmail().charAt(0)))
         {
             createSlotButton.setEnabled(false);
@@ -99,9 +99,17 @@ public class Consult extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
                 //String  course = adapterView.getItemAtPosition(position).toString();
-                course = adapter.getItem(position).toString();
-                spinner.setSelection(position);
-                showDataTimeTableSlots(course,timeTableDataList);
+                if(adapterView.getSelectedItem()!=null)
+                {
+                    course = adapterView.getSelectedItem().toString(); // adapter.getItem(position).toString();
+                    //spinner.setSelection(position);
+                    showDataTimeTableSlots(course,timeTableDataList);
+                }
+                else
+                {
+                    Toast.makeText(Consult.this,"null slections",Toast.LENGTH_SHORT);
+                }
+
                 //timeTableRecylcerViewAdapter.notifyDataSetChanged();
             }
 
@@ -121,7 +129,7 @@ public class Consult extends AppCompatActivity {
         });
 
         timeTableRecylerView = findViewById(R.id.timetable_recycler);
-        showDataCoursesSpinner();
+
         timeTableRecylcerViewAdapter = new RecyclerViewAdapterTimeTable(timeTableDataList,this);
         GridLayoutManager layoutManager = new GridLayoutManager(this,7);
         timeTableRecylerView.setLayoutManager(layoutManager);
