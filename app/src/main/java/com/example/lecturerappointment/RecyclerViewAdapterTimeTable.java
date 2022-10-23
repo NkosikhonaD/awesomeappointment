@@ -81,6 +81,12 @@ public class RecyclerViewAdapterTimeTable extends RecyclerView.Adapter<RecyclerV
     {
         return timeTableGridData.size();
     }
+    public void showClickedSlot(int position)
+    {
+        ConsultationData data = timeTableGridData.get(position);
+        Toast.makeText(context,data.getTitle()+" "+data.getUserId()+" "+data.getCourse()+" "+data.getStartTime(),Toast.LENGTH_SHORT).show();
+
+    }
 
     public class  RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
@@ -112,113 +118,152 @@ public class RecyclerViewAdapterTimeTable extends RecyclerView.Adapter<RecyclerV
             switch(position)
             {
                 case 8: // monday 8-10
-                    Toast.makeText(view.getContext(),"monday 8-10",Toast.LENGTH_SHORT).show();
+                    // I will have all the details about the slot, lecture =, start time end time, and course.
+                   // Toast.makeText(view.getContext(),"monday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(8);
+
+
                     break;
                 case 9: // monday 10-12
-                    Toast.makeText(view.getContext(),"monday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(9);
+                    //Toast.makeText(view.getContext(),"monday 10-12",Toast.LENGTH_SHORT).show();
                     break;
                 case 10: // monday 12-14
-                    Toast.makeText(view.getContext(),"monday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(10);
+                    //Toast.makeText(view.getContext(),"monday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 11:
-                    Toast.makeText(view.getContext(),"monday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(11);
+                    //Toast.makeText(view.getContext(),"monday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 12:
-                    Toast.makeText(view.getContext(),"monday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(12);
+                    //Toast.makeText(view.getContext(),"monday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 13:
-                    Toast.makeText(view.getContext(),"monday 18-20",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(13);
+                    //Toast.makeText(view.getContext(),"monday 18-20",Toast.LENGTH_SHORT).show();
                     break;
                 case 15: // Tuesday 8-10
-                    Toast.makeText(view.getContext(),"Tuesday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(15);
+                    //Toast.makeText(view.getContext(),"Tuesday 8-10",Toast.LENGTH_SHORT).show();
                     break;
                 case 16: // monday 10-12
-                    Toast.makeText(view.getContext(),"Tuesday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(16);
+                    //Toast.makeText(view.getContext(),"Tuesday 10-12",Toast.LENGTH_SHORT).show();
                     break;
                 case 17: // monday 12-14
-                    Toast.makeText(view.getContext(),"Tuesday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(17);
+                    //Toast.makeText(view.getContext(),"Tuesday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 18:
-                    Toast.makeText(view.getContext(),"Tuesday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(18);
+                    //Toast.makeText(view.getContext(),"Tuesday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 19:
-                    Toast.makeText(view.getContext(),"Tuesday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(19);
+                    //Toast.makeText(view.getContext(),"Tuesday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 20:
-                    Toast.makeText(view.getContext(),"Tuesday 14-16",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(view.getContext(),"Tuesday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(20);
                     break;
                 case 22: // Wednesday 8-10
-                    Toast.makeText(view.getContext(),"Wednesday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(22);
+                    //Toast.makeText(view.getContext(),"Wednesday 8-10",Toast.LENGTH_SHORT).show();
                     break;
                 case 23: // monday 10-12
-                    Toast.makeText(view.getContext(),"Wednesday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(23);
+                   // Toast.makeText(view.getContext(),"Wednesday 10-12",Toast.LENGTH_SHORT).show();
                     break;
                 case 24: // monday 12-14
-                    Toast.makeText(view.getContext(),"Wednesday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(24);
+                    //Toast.makeText(view.getContext(),"Wednesday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 25:
-                    Toast.makeText(view.getContext(),"Wednesday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(25);
+                    //Toast.makeText(view.getContext(),"Wednesday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 26:
-                    Toast.makeText(view.getContext(),"Wednesday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(26);
+                    //Toast.makeText(view.getContext(),"Wednesday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 27:
-                    Toast.makeText(view.getContext(),"Wednesday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(27);
+                    //Toast.makeText(view.getContext(),"Wednesday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 29: // Thursday 8-10
-                    Toast.makeText(view.getContext(),"Thursday 8-10",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(view.getContext(),"Thursday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(29);
                     break;
                 case 30: // monday 10-12
-                    Toast.makeText(view.getContext(),"Thursday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(30);
+                    //Toast.makeText(view.getContext(),"Thursday 10-12",Toast.LENGTH_SHORT).show();
                     break;
                 case 31: // monday 12-14
-                    Toast.makeText(view.getContext(),"Thursday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(31);
+                    //Toast.makeText(view.getContext(),"Thursday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 32:
-                    Toast.makeText(view.getContext(),"Thursday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(32);
+                    //Toast.makeText(view.getContext(),"Thursday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 33:
-                    Toast.makeText(view.getContext(),"Thursday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(33);
+                    //Toast.makeText(view.getContext(),"Thursday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 34:
-                    Toast.makeText(view.getContext(),"Thursday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(34);
+                    //Toast.makeText(view.getContext(),"Thursday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 36: // Friday 8-10
-                    Toast.makeText(view.getContext(),"Friday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(36);
+                    //Toast.makeText(view.getContext(),"Friday 8-10",Toast.LENGTH_SHORT).show();
                     break;
                 case 37: // monday 10-12
-                    Toast.makeText(view.getContext(),"Friday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(37);
+                    //Toast.makeText(view.getContext(),"Friday 10-12",Toast.LENGTH_SHORT).show();
                     break;
                 case 38: // monday 12-14
-                    Toast.makeText(view.getContext(),"Friday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(38);
+                    //Toast.makeText(view.getContext(),"Friday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 39:
-                    Toast.makeText(view.getContext(),"Friday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(39);
+                   // Toast.makeText(view.getContext(),"Friday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 40:
-                    Toast.makeText(view.getContext(),"Friday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(40);
+                   // Toast.makeText(view.getContext(),"Friday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 41:
-                    Toast.makeText(view.getContext(),"Friday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(41);
+                    //Toast.makeText(view.getContext(),"Friday 14-16",Toast.LENGTH_SHORT).show();
                     break;
 
                 case 43: //Saturday 8-10
-                    Toast.makeText(view.getContext(),"Saturday 8-10",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(view.getContext(),"Saturday 8-10",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(43);
                     break;
                 case 44: //
-                    Toast.makeText(view.getContext(),"Saturday 10-12",Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(view.getContext(),"Saturday 10-12",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(44);
                     break;
                 case 45: //  12-14
-                    Toast.makeText(view.getContext(),"Saturday 12-14",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(45);
+                    //Toast.makeText(view.getContext(),"Saturday 12-14",Toast.LENGTH_SHORT).show();
                     break;
                 case 46:
-                    Toast.makeText(view.getContext(),"Saturday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(46);
+                    //Toast.makeText(view.getContext(),"Saturday 14-16",Toast.LENGTH_SHORT).show();
                     break;
                 case 47:
-                    Toast.makeText(view.getContext(),"Saturday 16-18",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(47);
+                    //Toast.makeText(view.getContext(),"Saturday 16-18",Toast.LENGTH_SHORT).show();
                     break;
                 case 48:
-                    Toast.makeText(view.getContext(),"Saturday 14-16",Toast.LENGTH_SHORT).show();
+                    showClickedSlot(48);
+                    //Toast.makeText(view.getContext(),"Saturday 14-16",Toast.LENGTH_SHORT).show();
                     break;
             }
 

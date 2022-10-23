@@ -3,6 +3,7 @@ package com.example.lecturerappointment;
 import static androidx.recyclerview.widget.LinearLayoutManager.*;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.TimePickerDialog;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -206,16 +210,46 @@ public class LecturerAddSlot extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                addNewSlot();
-                // clear selections
-                //spinnerDay.setSelection(0);
-                //spinnerCourse.setSelection(0);
-                editTextEndTime.setText("00:00");
-                editTextStartTime.setText("00:00");
+                LinearLayout linearLayout = new LinearLayout(LecturerAddSlot.this);
+                linearLayout.setPadding(10,10,10,10);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LecturerAddSlot.this);
+                builder.setTitle("Confirm slot: "+daySelected+" "+courseSelected);
+                final EditText startTimeEd = new EditText(LecturerAddSlot.this);
+                final EditText endTimeEd = new EditText(LecturerAddSlot.this);
+                startTimeEd.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+                endTimeEd.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
 
-                Toast.makeText(LecturerAddSlot.this, "Create a new slot, select Course, Day and Times", Toast.LENGTH_SHORT).show();
+                startTimeEd.setText("Start time: "+editTextStartTime.getText().toString());
+                endTimeEd.setText("End time: "+editTextEndTime.getText().toString());
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.addView(startTimeEd);
+                linearLayout.addView(endTimeEd);
+                builder.setView(linearLayout);
+
+                 builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         addNewSlot();
+                         editTextEndTime.setText("00:00");
+                         editTextStartTime.setText("00:00");
+                         Toast.makeText(LecturerAddSlot.this, "Create a new slot, select Course, Day and Times", Toast.LENGTH_SHORT).show();
+
+                     }
+                 });
+
+                 builder.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         Toast.makeText(LecturerAddSlot.this, "Edit your slot details", Toast.LENGTH_SHORT).show();
+
+                         dialogInterface.dismiss();
+                     }
+                 });
+                builder.create().show();
             }
+
         });
+
 
     }
     public void addNewSlot()
@@ -224,8 +258,8 @@ public class LecturerAddSlot extends AppCompatActivity
         String course = courseSelected;
         String startTime = editTextStartTime.getText().toString();
         String endTime = editTextEndTime.getText().toString();
-        String lectureEmail= "";
-        consultationDataArrayList.add(new ConsultationData(day+" "+course,startTime,endTime));
+        String lectureEmail= currentUser.getEmail();;
+        consultationDataArrayList.add(new ConsultationData(day+" "+course,startTime,endTime,lectureEmail,course));
         slotsRecyclerViewAdapter.notifyItemInserted(consultationDataArrayList.size());
         slotsHashMap= new HashMap<>();
 

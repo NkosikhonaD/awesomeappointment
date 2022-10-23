@@ -107,7 +107,7 @@ public class Consult extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(Consult.this,"null slections",Toast.LENGTH_SHORT);
+                    Toast.makeText(Consult.this,"null selections",Toast.LENGTH_SHORT);
                 }
 
                 //timeTableRecylcerViewAdapter.notifyDataSetChanged();
@@ -146,6 +146,7 @@ public class Consult extends AppCompatActivity {
     private void updateTimeTableData(ArrayList<ConsultationData> currentConsultationDataList, String day,String startTime,String endTime)
     {
         addTimeTableData(currentConsultationDataList);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalTime start = LocalTime.parse(startTime);
             LocalTime end = LocalTime.parse(endTime);
@@ -285,7 +286,6 @@ public class Consult extends AppCompatActivity {
                     timeTableRecylcerViewAdapter.notifyItemChanged(46);
                 }
 
-
             }
 
             if(start.getHour()==15 || start.getHour()==16)
@@ -366,123 +366,164 @@ public class Consult extends AppCompatActivity {
 
     public void addTimeTableData(ArrayList<ConsultationData> timeTableDataList)
     {
-        timeTableDataList.clear();
+        //timeTableDataList.clear();
 
-        timeTableDataList.add(0,new ConsultationData("Slots"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(0);
-        timeTableDataList.add(1,new ConsultationData("8-10"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(1);
-        timeTableDataList.add(2,new ConsultationData("10-12"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(2);
-        timeTableDataList.add(3,new ConsultationData("12-2"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(3);
-        timeTableDataList.add(4,new ConsultationData("2-4"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(4);
-        timeTableDataList.add(5,new ConsultationData("4-6"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(5);
-        timeTableDataList.add(6,new ConsultationData("6-8"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(6);
+        int count = 0;
+        if(timeTableDataList.isEmpty())
+        {
+            timeTableDataList.add(0,new ConsultationData("Slots"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(0);
+            timeTableDataList.add(1,new ConsultationData("8-10"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(1);
+            timeTableDataList.add(2,new ConsultationData("10-12"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(2);
+            timeTableDataList.add(3,new ConsultationData("12-2"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(3);
+            timeTableDataList.add(4,new ConsultationData("2-4"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(4);
+            timeTableDataList.add(5,new ConsultationData("4-6"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(5);
+            timeTableDataList.add(6,new ConsultationData("6-8"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(6);
 
 
 
-        timeTableDataList.add(7,new ConsultationData("Mon"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(7);
+            timeTableDataList.add(7,new ConsultationData("Mon"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(7);
 
-        // Monday
-        timeTableDataList.add(8,new ConsultationData("0")); // 8 - 9
-        timeTableRecylcerViewAdapter.notifyItemChanged(8);
-        timeTableDataList.add(9,new ConsultationData("0")); // 10 - 11
-        timeTableRecylcerViewAdapter.notifyItemChanged(9);
-        timeTableDataList.add(10,new ConsultationData("0")); // 11 - 12
-        timeTableRecylcerViewAdapter.notifyItemChanged(10);
-        timeTableDataList.add(11,new ConsultationData("0")); // 13 - 14
-        timeTableRecylcerViewAdapter.notifyItemChanged(11);
-        timeTableDataList.add(12,new ConsultationData("0")); // 14 - 15
-        timeTableRecylcerViewAdapter.notifyItemChanged(12);
-        timeTableDataList.add(13,new ConsultationData("0")); // 16 - 17
-        timeTableRecylcerViewAdapter.notifyItemChanged(13);
+            // Monday
+            timeTableDataList.add(8,new ConsultationData("0")); // 8 - 9
+            timeTableRecylcerViewAdapter.notifyItemChanged(8);
+            timeTableDataList.add(9,new ConsultationData("0")); // 10 - 11
+            timeTableRecylcerViewAdapter.notifyItemChanged(9);
+            timeTableDataList.add(10,new ConsultationData("0")); // 11 - 12
+            timeTableRecylcerViewAdapter.notifyItemChanged(10);
+            timeTableDataList.add(11,new ConsultationData("0")); // 13 - 14
+            timeTableRecylcerViewAdapter.notifyItemChanged(11);
+            timeTableDataList.add(12,new ConsultationData("0")); // 14 - 15
+            timeTableRecylcerViewAdapter.notifyItemChanged(12);
+            timeTableDataList.add(13,new ConsultationData("0")); // 16 - 17
+            timeTableRecylcerViewAdapter.notifyItemChanged(13);
 
-        timeTableDataList.add(14,new ConsultationData("Tue"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(14);
+            timeTableDataList.add(14,new ConsultationData("Tue"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(14);
 
-        // Tuesday
-        timeTableDataList.add(15,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(15);
-        timeTableDataList.add(16,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(16);
-        timeTableDataList.add(17,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(17);
-        timeTableDataList.add(18,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(18);
-        timeTableDataList.add(19,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(19);
-        timeTableDataList.add(20,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(20);
+            // Tuesday
+            timeTableDataList.add(15,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(15);
+            timeTableDataList.add(16,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(16);
+            timeTableDataList.add(17,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(17);
+            timeTableDataList.add(18,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(18);
+            timeTableDataList.add(19,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(19);
+            timeTableDataList.add(20,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(20);
 
-        // Wednesday
-        timeTableDataList.add(21,new ConsultationData("Wed"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(21);
-        timeTableDataList.add(22,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(22);
-        timeTableDataList.add(23,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(23);
-        timeTableDataList.add(24,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(24);
-        timeTableDataList.add(25,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(25);
-        timeTableDataList.add(26,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(26);
-        timeTableDataList.add(27,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(27);
+            // Wednesday
+            timeTableDataList.add(21,new ConsultationData("Wed"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(21);
+            timeTableDataList.add(22,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(22);
+            timeTableDataList.add(23,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(23);
+            timeTableDataList.add(24,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(24);
+            timeTableDataList.add(25,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(25);
+            timeTableDataList.add(26,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(26);
+            timeTableDataList.add(27,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(27);
 
-        // Thusrday
-        timeTableDataList.add(28,new ConsultationData("Thu"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(28);
-        timeTableDataList.add(29,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(29);
-        timeTableDataList.add(30,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(30);
-        timeTableDataList.add(31,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(31);
-        timeTableDataList.add(32,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(32);
-        timeTableDataList.add(33,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(33);
-        timeTableDataList.add(34,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(34);
+            // Thusrday
+            timeTableDataList.add(28,new ConsultationData("Thu"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(28);
+            timeTableDataList.add(29,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(29);
+            timeTableDataList.add(30,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(30);
+            timeTableDataList.add(31,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(31);
+            timeTableDataList.add(32,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(32);
+            timeTableDataList.add(33,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(33);
+            timeTableDataList.add(34,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(34);
 
-        // Friday
+            // Friday
 
-        timeTableDataList.add(35,new ConsultationData("Fri"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(35);
-        timeTableDataList.add(36,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(36);
-        timeTableDataList.add(37,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(37);
-        timeTableDataList.add(38,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(38);
-        timeTableDataList.add(39,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(39);
-        timeTableDataList.add(40,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(40);
-        timeTableDataList.add(41,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(41);
+            timeTableDataList.add(35,new ConsultationData("Fri"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(35);
+            timeTableDataList.add(36,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(36);
+            timeTableDataList.add(37,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(37);
+            timeTableDataList.add(38,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(38);
+            timeTableDataList.add(39,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(39);
+            timeTableDataList.add(40,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(40);
+            timeTableDataList.add(41,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(41);
 
-        // Saturday
-        timeTableDataList.add(42,new ConsultationData("Sat"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(42);
-        timeTableDataList.add(43,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(43);
-        timeTableDataList.add(44,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(44);
-        timeTableDataList.add(45,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(45);
-        timeTableDataList.add(46,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(46);
-        timeTableDataList.add(47,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(47);
-        timeTableDataList.add(48,new ConsultationData("0"));
-        timeTableRecylcerViewAdapter.notifyItemChanged(48);
+            // Saturday
+            timeTableDataList.add(42,new ConsultationData("Sat"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(42);
+            timeTableDataList.add(43,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(43);
+            timeTableDataList.add(44,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(44);
+            timeTableDataList.add(45,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(45);
+            timeTableDataList.add(46,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(46);
+            timeTableDataList.add(47,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(47);
+            timeTableDataList.add(48,new ConsultationData("0"));
+            timeTableRecylcerViewAdapter.notifyItemChanged(48);
+
+
+        }
+        else
+        {
+            for(ConsultationData data:timeTableDataList)
+            {
+                // make sure same course, same lecturer
+                if((data.getTitle()!=null))
+                {
+                    if(!data.getTitle().equals("0"))
+                    {
+                        if(course!=null)
+                        {
+                            if((data.getCourse() !=null))
+                            {
+                                if(!course.equalsIgnoreCase(data.getCourse())) {
+                                    data.setTitle("0");
+                                    timeTableDataList.set(count,data);
+                                    timeTableRecylcerViewAdapter.notifyItemChanged(count);
+                                }
+                                else
+                                {
+                                    data.setTitle("1");
+                                    timeTableDataList.set(count, data);
+                                    timeTableRecylcerViewAdapter.notifyItemChanged(count);
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+                count=count+1;
+            }
+        }
+
         timeTableRecylerView.setAdapter(timeTableRecylcerViewAdapter);
 
     }
