@@ -74,9 +74,9 @@ public class Consult extends AppCompatActivity {
         keyListSlotSlices = new ArrayList<>();
         courseListSlices = new ArrayList<>();
 
-       slotStartTimeList = new ArrayList<>();
-       slotEndTimeList= new ArrayList<>();
-       slotStudentList = new ArrayList<>();
+        slotStartTimeList = new ArrayList<>();
+        slotEndTimeList= new ArrayList<>();
+        slotStudentList = new ArrayList<>();
         dayList = new ArrayList<>();
         createSlotButton = findViewById(R.id.create_slot);
         adapter= new ArrayAdapter<>(Consult.this,android.R.layout.simple_spinner_item,courseList);
@@ -142,7 +142,7 @@ public class Consult extends AppCompatActivity {
      * On the days: MONDAY- SATURDAY, we may have to add 0,1 to show that slot is available or not
      * On the adapter class, view probably set the invisible the views
      */
-
+    // public ConsultationData(String title, String startTime, String endTime,String userId,String course)
     private void updateTimeTableData(ArrayList<ConsultationData> currentConsultationDataList, String day,String startTime,String endTime)
     {
         addTimeTableData(currentConsultationDataList);
@@ -154,32 +154,32 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(8,new ConsultationData("1"));
+                    currentConsultationDataList.set(8,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(8);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(15,new ConsultationData("1"));
+                    currentConsultationDataList.set(15,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(15);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(22,new ConsultationData("1"));
+                    currentConsultationDataList.set(22,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(22);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(29,new ConsultationData("1"));
+                    currentConsultationDataList.set(29,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(29);
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(36,new ConsultationData("1"));
+                    currentConsultationDataList.set(36,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(36);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(43,new ConsultationData("1"));
+                    currentConsultationDataList.set(43,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(43);
                 }
 
@@ -188,32 +188,32 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(9,new ConsultationData("1"));
+                    currentConsultationDataList.set(9,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(9);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(16,new ConsultationData("1"));
+                    currentConsultationDataList.set(16,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(16);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(23,new ConsultationData("1"));
+                    currentConsultationDataList.set(23,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(23);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(30,new ConsultationData("1"));
+                    currentConsultationDataList.set(30,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(30);
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(37,new ConsultationData("1"));
+                    currentConsultationDataList.set(37,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(37);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(44,new ConsultationData("1"));
+                    currentConsultationDataList.set(44,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(44);
                 }
 
@@ -223,32 +223,32 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(10,new ConsultationData("1"));
+                    currentConsultationDataList.set(10,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(10);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(17,new ConsultationData("1"));
+                    currentConsultationDataList.set(17,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(17);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(24,new ConsultationData("1"));
+                    currentConsultationDataList.set(24,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(24);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(31,new ConsultationData("1"));
+                    currentConsultationDataList.set(31,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(31);
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(38,new ConsultationData("1"));
+                    currentConsultationDataList.set(38,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(38);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(45,new ConsultationData("1"));
+                    currentConsultationDataList.set(45,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(45);
                 }
 
@@ -257,32 +257,32 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(11,new ConsultationData("1"));
+                    currentConsultationDataList.set(11,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(11);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(18,new ConsultationData("1"));
+                    currentConsultationDataList.set(18,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(18);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(25,new ConsultationData("1"));
+                    currentConsultationDataList.set(25,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(25);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(32,new ConsultationData("1"));
+                    currentConsultationDataList.set(32,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(32);
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(39,new ConsultationData("1"));
+                    currentConsultationDataList.set(39,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(39);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(46,new ConsultationData("1"));
+                    currentConsultationDataList.set(46,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(46);
                 }
 
@@ -292,32 +292,32 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(12,new ConsultationData("1"));
+                    currentConsultationDataList.set(12,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(12);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(19,new ConsultationData("1"));
+                    currentConsultationDataList.set(19,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(19);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(26,new ConsultationData("1"));
+                    currentConsultationDataList.set(26,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(26);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(33,new ConsultationData("1"));
+                    currentConsultationDataList.set(33,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(33);
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(40,new ConsultationData("1"));
+                    currentConsultationDataList.set(40,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(40);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(47,new ConsultationData("1"));
+                    currentConsultationDataList.set(47,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(47);
 
                 }
@@ -328,33 +328,33 @@ public class Consult extends AppCompatActivity {
             {
                 if(day.equalsIgnoreCase("mon"))
                 {
-                    currentConsultationDataList.set(13,new ConsultationData("1"));
+                    currentConsultationDataList.set(13,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(13);
                 }
                 if(day.equalsIgnoreCase("tue"))
                 {
-                    currentConsultationDataList.set(20,new ConsultationData("1"));
+                    currentConsultationDataList.set(20,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(20);
                 }
                 if(day.equalsIgnoreCase("wed"))
                 {
-                    currentConsultationDataList.set(27,new ConsultationData("1"));
+                    currentConsultationDataList.set(27,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(27);
                 }
                 if(day.equalsIgnoreCase("thu"))
                 {
-                    currentConsultationDataList.set(34,new ConsultationData("1"));
+                    currentConsultationDataList.set(34,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(34);
 
                 }
                 if(day.equalsIgnoreCase("fri"))
                 {
-                    currentConsultationDataList.set(41,new ConsultationData("1"));
+                    currentConsultationDataList.set(41,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(41);
                 }
                 if(day.equalsIgnoreCase("sat"))
                 {
-                    currentConsultationDataList.set(48,new ConsultationData("1"));
+                    currentConsultationDataList.set(48,new ConsultationData("1",startTime,endTime,currentUser.getEmail(),course));
                     timeTableRecylcerViewAdapter.notifyItemChanged(48);
                 }
 

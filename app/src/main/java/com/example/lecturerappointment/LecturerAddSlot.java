@@ -45,9 +45,9 @@ import java.util.List;
 
 public class LecturerAddSlot extends AppCompatActivity
 {
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth loggedUser;
-    private DatabaseReference databaseReferenceCourses = database.getReference("courses");;
+    private DatabaseReference databaseReferenceCourses = database.getReference("courses");
     private DatabaseReference databaseReferenceSlotScices= database.getReference("Slot_slices");
     private DatabaseReference databaseReferenceSlots= database.getReference("slots");
     private FirebaseUser currentUser;
@@ -162,6 +162,26 @@ public class LecturerAddSlot extends AppCompatActivity
         slotsRecylcerView.setLayoutManager(layoutManager);
         slotsRecylcerView.setAdapter(slotsRecyclerViewAdapter);
 
+        editTextStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                currentHour = c.get(Calendar.HOUR);
+                currentMinute = c.get(Calendar.MINUTE);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this,1, new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute)
+                    {
+                        String time = String.format("%02d",hour)+":"+String.format("%02d",minute);
+                        editTextStartTime.setText(time);
+                    }
+                },currentHour,currentMinute,true);
+                timePickerDialog.setTitle("Set Start  time");
+                timePickerDialog.show();
+
+            }
+        });
         setStartTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -182,7 +202,29 @@ public class LecturerAddSlot extends AppCompatActivity
                 timePickerDialog.show();
             }
         });
+        editTextEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String  time = editTextStartTime.getText().toString();
+                int h = Integer.parseInt(time.split(":")[0]);
+                int m = Integer.parseInt(time.split(":")[1]);
 
+                TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this,1, new TimePickerDialog.OnTimeSetListener()
+                {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute)
+                    {
+
+                        String time = String.format("%02d",hour)+":"+String.format("%02d",minute);
+                        editTextEndTime.setText(time);
+                    }
+                },h,m,true);
+                timePickerDialog.setTitle("Set End time");
+
+                timePickerDialog.show();
+
+            }
+        });
         setEndTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -249,6 +291,7 @@ public class LecturerAddSlot extends AppCompatActivity
             }
 
         });
+
 
 
     }
