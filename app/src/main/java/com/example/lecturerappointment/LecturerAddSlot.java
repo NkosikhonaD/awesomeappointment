@@ -177,7 +177,7 @@ public class LecturerAddSlot extends AppCompatActivity
                         editTextStartTime.setText(time);
                     }
                 },currentHour,currentMinute,true);
-                timePickerDialog.setTitle("Set Start  time");
+                timePickerDialog.setTitle("Set Start time");
                 timePickerDialog.show();
 
             }
@@ -198,7 +198,7 @@ public class LecturerAddSlot extends AppCompatActivity
                         editTextStartTime.setText(time);
                     }
                 },currentHour,currentMinute,true);
-                timePickerDialog.setTitle("Set Start  time");
+                timePickerDialog.setTitle("Set Start time");
                 timePickerDialog.show();
             }
         });
@@ -301,7 +301,7 @@ public class LecturerAddSlot extends AppCompatActivity
         String course = courseSelected;
         String startTime = editTextStartTime.getText().toString();
         String endTime = editTextEndTime.getText().toString();
-        String lectureEmail= currentUser.getEmail();;
+        String lectureEmail= currentUser.getEmail();
         consultationDataArrayList.add(new ConsultationData(day+" "+course,startTime,endTime,lectureEmail,course));
         slotsRecyclerViewAdapter.notifyItemInserted(consultationDataArrayList.size());
         slotsHashMap= new HashMap<>();
