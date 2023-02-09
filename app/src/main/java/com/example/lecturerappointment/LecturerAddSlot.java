@@ -167,7 +167,7 @@ public class LecturerAddSlot extends AppCompatActivity
             public void onClick(View view) {
                 final Calendar c = Calendar.getInstance();
                 currentHour = c.get(Calendar.HOUR);
-                currentMinute = c.get(Calendar.MINUTE);
+                currentMinute = c.get(Calendar.SECOND);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(LecturerAddSlot.this,1, new TimePickerDialog.OnTimeSetListener()
                 {
                     @Override
